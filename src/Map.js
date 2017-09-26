@@ -883,11 +883,8 @@ export function mergeIntoCollectionWith(collection, merger, iters) {
 
 function updateInDeepMap(existing, keyPath, i, notSetValue, updater) {
   const isNotSet = existing === NOT_SET;
-  if (i === keyPath.length) {
-    const existingValue = isNotSet ? notSetValue : existing;
-    const newValue = updater(existingValue);
-    return newValue === existingValue ? existing : newValue;
-  }
+  if (i === keyPath.length)
+    return updater(isNotSet ? notSetValue : existing);
   if (!(isNotSet || (existing && existing.set))) {
     throw new TypeError(
       'Invalid keyPath: Value at [' +
