@@ -2817,12 +2817,7 @@ function updateInDeepMap(existing, keyPath, i, notSetValue, updater) {
     return newValue === existingValue ? existing : newValue;
   }
   if (!(isNotSet || (existing && existing.set))) {
-    throw new TypeError(
-      'Invalid keyPath: Value at [' +
-        keyPath.slice(0, i).map(quoteString) +
-        '] does not have a .set() method and cannot be updated: ' +
-        existing
-    );
+    return existing;
   }
   var key = keyPath[i];
   var nextExisting = isNotSet ? NOT_SET : existing.get(key, NOT_SET);
@@ -4666,12 +4661,7 @@ mixin(Collection, {
     var i = 0;
     while (i !== keyPath.length) {
       if (!nested || !nested.get) {
-        throw new TypeError(
-          'Invalid keyPath: Value at [' +
-            keyPath.slice(0, i).map(quoteString) +
-            '] does not have a .get() method: ' +
-            nested
-        );
+        return nested;
       }
       nested = nested.get(keyPath[i++], NOT_SET);
       if (nested === NOT_SET) {
