@@ -394,12 +394,7 @@ mixin(Collection, {
     let i = 0;
     while (i !== keyPath.length) {
       if (!nested || !nested.get) {
-        throw new TypeError(
-          'Invalid keyPath: Value at [' +
-            keyPath.slice(0, i).map(quoteString) +
-            '] does not have a .get() method: ' +
-            nested
-        );
+        return nested;
       }
       nested = nested.get(keyPath[i++], NOT_SET);
       if (nested === NOT_SET) {

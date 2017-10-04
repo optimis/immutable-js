@@ -889,12 +889,7 @@ function updateInDeepMap(existing, keyPath, i, notSetValue, updater) {
     return newValue === existingValue ? existing : newValue;
   }
   if (!(isNotSet || (existing && existing.set))) {
-    throw new TypeError(
-      'Invalid keyPath: Value at [' +
-        keyPath.slice(0, i).map(quoteString) +
-        '] does not have a .set() method and cannot be updated: ' +
-        existing
-    );
+    return existing;
   }
   const key = keyPath[i];
   const nextExisting = isNotSet ? NOT_SET : existing.get(key, NOT_SET);
